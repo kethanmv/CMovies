@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/ff1e0b8b21.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        {% if title %}
+        <title>CMovies | {{ title }}</title>
+        {% else %}
+        <title>CMovies</title>
+        {% endif %}
+        <!--<script type="text/javascript">
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= 50) {
+                $('.navbar').css('background','black');
+                } else {
+                $('.navbar').css('background','transparent');
+                }
+            });
+            </script> -->
+        <script type="text/javascript">
+            xhr = new XMLHttpRequest();
+            n=2;
+            var x = window.location.href
+            var id = x.split("/")[4];
+            //console.log(id);
+            function fetch() {
+                xhr.onload = show;
+                xhr.timeout = 4000;
+                xhr.ontimeout = backoff;
+                xhr.open("GET","/getcounts/"+id,true);
+                xhr.send(); 
+            }
+            function show()
+            {
+                n=2;
+                var res = JSON.parse(xhr.responseText);
+                //console.log(res[0]['likes']);
+                //var resArr = res.split(";");
+                document.getElementById("view_count").innerHTML = res[0]['views'];
+                document.getElementById("like_count").innerHTML = res[0]['likes'];
+                setTimeout(fetch,3000);
+            }
+            function backoff()
+            {
+                console.log("There is no connectivity");
+                setTimeout(fetch,2*n*3000);
+                n=n*2;
+                console.log(n);
+            }
+        </script>
+    </head>
+    <body onload="fetch()">
+        <nav class="navbar navbar-expand-lg navbar-trans navbar-inverse sticky-top">
+            <div class="container">
+                <img src="{{ url_for('static', filename='logo.png') }}" class="nav-logo">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" style="color: #e50914;font-size: 30px;"></i>
+                </button>
+                <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+                    <div>
+                        <form action="" method="POST" class="searchform navbar-form" role="search">
+                            {{ form.hidden_tag() }}
+                            <input type="hidden" value="search" name="view">
+                            <div class="input-group">
+                                {{ form.search_field(class="form-control search") }}
+                                {{ form.search_field.label }}
+                                <div class="input-group-btn">
+                                    <button class="btn" type="submit"><i class="fa fa-search" style="color: black;"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <div style="padding: 10px 15px;position: absolute;z-index: 50;margin-top: 50px;" id="search-res">
+                        </div>
+                    </div>
+                    <ul class="navbar-nav mt-2 mt-md-0">
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}" style="padding-top: 15px;">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('latest') }}" style="padding-top: 15px;">Latest</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('mylist') }}" style="padding-top: 15px;">My List</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ url_for('account') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ image_file }}" width="40" height="40" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url_for('history') }}">Watch History</a>
+                                <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                                <a class="dropdown-item btn btn-outline-danger btn-outline" href="{{ url_for('logout') }}" style="margin-left: 0;"><i class="fa fa-user"></i> Logout
+                                </a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger btn-outline" href="{{ url_for('login') }}"><i class="fa fa-user"></i> Sign In
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger btn-outline" href="{{ url_for('register') }}"><i class="fa fa-user"></i> Sign Up
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container main-container">
+            <div class="bg">
+                <div class="content">
+                    <div class="image">
+                        <img src="../static/movie_posters/{{ movie.movie_pic }}" width="300px" height="450px" />
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            <a>
+                                <h2>{{ movie.movie_title }}</h2>
+                            </a>
+                            <span></span>
+                        </div>
+                        <div class="score">
+                            <p>{{ movie.release_year }} | </p>
+                            <p>{{ movie.movie_length }} | </p>
+                            <p>{{ movie.language }}</p>
+                        </div>
+                        <div class="about">
+                            <div class="overview">
+                                <h6><b>Description</b></h6>
+                                <p>{{ movie.desc }}</p>
+                            </div>
+                            <div class="featured-crew">
+                                <h6 style="display: inline-block;"><b>Created by  : </b></h6>
+                                <p style="display: inline-block;">{{ movie.director }}</p>
+                                <ul style="list-style: none;">
+                                    <li>
+                                        <h6 style="display: inline-block;"><b>Cast  : </b></h6>
+                                        <p style="display: inline-block;">{{ movie.act_cast }}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h6 style="display: inline-block;"><b>Genre  : </b></h6>
+                                        <p style="display: inline-block;">{{ movie.genre }}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="stats">
+                                <div class="views" style="display: inline-block;">
+                                    <i class="fas fa-eye" style="display: inline-block;padding-right: 10px;"></i>
+                                    <b>
+                                        <p id="view_count" style="display: inline-block;font-size: 17px;"></p>
+                                    </b>
+                                </div>
+                                <div class="likes" style="display: inline-block;">
+                                    <i class="far fa-thumbs-up" style="display: inline-block;padding-right: 10px;"></i><b>
+                                    <p id="like_count" style="display: inline-block;font-size: 17px;"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="meta-actions">
+                            <ul>
+                                <li class="add-to-list">
+                                    <a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in my_list else 'white'}};"></i></a>
+                                </li>
+                                <li class="favorite">
+                                    <a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a>
+                                </li>
+                                <li class="fff">
+                                    <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" ><i class="fa fa-play play_new"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+              $(".add").click(function(){
+                var id = $(this).attr('id');
+                $.ajax({type: "GET",url: window.location.origin+"/add_to_list/"+id, success: function(result){
+                    //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+                    $(".add").each(function(){
+                        var idx = $(this).attr('id');
+                        if(idx==id){
+                            console.log("YES");
+                            if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                            {
+                                $(this).find("i").css("color","blue");
+                            }
+                            else
+                            {
+                                $(this).find("i").css("color","rgb(255, 255, 255)");
+                            }
+                        }
+                    });
+                    
+                }});
+              });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+              $(".like").click(function(){
+                var id = $(this).attr('id');
+                $.ajax({type: "GET",url: window.location.origin+"/like/"+id, success: function(result){
+                    //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+                    $(".like").each(function(){
+                        var idx = $(this).attr('id');
+                        if(idx==id){
+                            console.log("YES");
+                            if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                            {
+                                $(this).find("i").css("color","#e50914");
+                            }
+                            else
+                            {
+                                $(this).find("i").css("color","rgb(255, 255, 255)");
+                            }
+                        }
+                    });
+                    
+                }});
+              });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+              $(".search").keyup(function(){
+                setTimeout(function(){
+                    var ser = $(".search").val();
+                    //console.log(ser);
+                    container = document.getElementById("search-res");
+                    container.innerHTML = '';
+                    if(ser!='')
+                    {
+                      $.ajax({type: "GET",url: window.location.origin+"/getsearchresults/"+ser,dataType: 'json', complete: function(result){
+                        res = JSON.parse(result.responseText);
+                        for (var i = 0; i <res.length; i++) {
+                          var div = document.createElement("div");
+                          var x1 = document.createElement("a");
+                          x1.innerHTML = res[i];
+                          //console.log(result);
+                          //x1.innerHTML = res[i];
+                          //console.log(res[i]);
+                          var s = "/search/"+res[i];
+                          //console.log(s);
+                          x1.href = s;
+                          x1.style.display="block";
+                          div.classList.add("search_element");
+                          div.appendChild(x1);
+                          container.appendChild(div);
+                      }  
+                      }});
+                  }
+                },1000);
+              });
+            });
+        </script>
+        <footer id="footer" class="footer-1" >
+            <div class="main-footer widgets-dark typo-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="widget subscribe no-box">
+                                <h5 class="widget-title">CMovies<span></span></h5>
+                                <p>Watch movies online for free in high quality.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="widget no-box">
+                                <h5 class="widget-title">Quick Links<span></span></h5>
+                                <ul class="thumbnail-widget">
+                                    <li>
+                                        <div class="thumb-content"><a href="#.">Get Started</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="widget no-box">
+                                <h5 class="widget-title">Contact Us<span></span></h5>
+                                <ul class="social-footer2">
+                                    <li class=""><a title="youtube" target="_blank" href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
+                                    <li class=""><a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li class=""><a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li class=""><a title="instagram" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>Copyright CMovies © 2020. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

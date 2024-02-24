@@ -1,0 +1,290 @@
+{% extends "layout.html" %}
+{% block bodycontent %}
+<nav class="navbar navbar-expand-lg navbar-trans navbar-inverse sticky-top">
+    <div class="container">
+        <!--<a class="navbar-brand" href="#">Bootstrap 4 Cover Nav</a>-->
+        <img src="{{ url_for('static', filename='logo.png') }}" class="nav-logo">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" style="color: #e50914;font-size: 30px;"></i>
+        </button>
+        <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+            <div>
+                <form action="" method="POST" class="searchform navbar-form" role="search">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" value="search" name="view">
+                    <div class="input-group">
+                        {{ form.search_field(class="form-control search") }}
+                        {{ form.search_field.label }}
+                        <div class="input-group-btn">
+                            <button class="btn" type="submit"><i class="fa fa-search" style="color: black;"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div style="padding: 10px 15px;position: absolute;z-index: 50;margin-top: 50px;" id="search-res">
+                </div>
+            </div>
+            <ul class="navbar-nav mt-2 mt-md-0">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('home') }}" style="padding-top: 15px;color: #e50914;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('latest') }}" style="padding-top: 15px;">Latest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('mylist') }}" style="padding-top: 15px;">My List</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('account') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ image_file }}" width="40" height="40" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('history') }}">Watch History</a>
+                        <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                        <a class="dropdown-item btn btn-outline-danger btn-outline" href="{{ url_for('logout') }}" style="margin-left: 0;"><i class="fa fa-user"></i> Logout
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('login') }}"><i class="fa fa-user"></i> Sign In
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('register') }}"><i class="fa fa-user"></i> Sign Up
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<center>
+    <header style="margin-bottom: 5px;">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                    <img class="d-block img-fluid" src="../static/carousel/{{ carousel1.movie_pic }}" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ carousel1.movie_title }}</h3>
+                        <a href="{{ url_for('watch',youtube_id=carousel1.youtube_id) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;margin-right: 5px;"><i class="fas fa-play" style="padding-right: 10px;"></i>Play</button></a>
+                        <a href="{{ url_for('info',video_id=carousel1.movieid) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;"><i class="fas fa-info" style="padding-right: 15px;"></i>Info</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block img-fluid" src="../static/carousel/{{ carousel2.movie_pic }}" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ carousel2.movie_title }}</h3>
+                        <a href="{{ url_for('watch',youtube_id=carousel2.youtube_id) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;margin-right: 5px;"><i class="fas fa-play" style="padding-right: 10px;"></i>Play</button></a>
+                        <a href="{{ url_for('info',video_id=carousel2.movieid) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;"><i class="fas fa-info" style="padding-right: 15px;"></i>Info</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block img-fluid" src="../static/carousel/{{ carousel3.movie_pic }}" alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ carousel3.movie_title }}</h3>
+                        <a href="{{ url_for('watch',youtube_id=carousel3.youtube_id) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;margin-right: 5px;"><i class="fas fa-play" style="padding-right: 10px;"></i>Play</button></a>
+                        <a href="{{ url_for('info',video_id=carousel3.movieid) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;"><i class="fas fa-info" style="padding-right: 15px;"></i>Info</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block img-fluid" src="../static/carousel/{{ carousel4.movie_pic }}" alt="Fourth slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ carousel4.movie_title }}</h3>
+                        <a href="{{ url_for('watch',youtube_id=carousel4.youtube_id) }}"><button class="btn btn-danger" style="background: #e50914;border: 1px solid #e50914;color: white;margin-right: 5px;"><i class="fas fa-play" style="padding-right: 10px;"></i>Play</button></a>
+                        <a href="{{ url_for('info',video_id=carousel4.movieid) }}"><button class="btn btn-dander" style="background: #e50914;border: 1px solid #e50914;color: white;"><i class="fas fa-info" style="padding-right: 15px;"></i>Info</button></a>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+</center>
+<div class="contain main-container">
+    <h3 class="row-head">Recommended for You</h3>
+    <div class="row">
+        <div class="row__inner">
+            {% for movie in recommendx %}
+            <div class="tile" title="{{ movie.movie_title }}">
+                <div class="tile__media">
+                    <img class="tile__img" src="static/movie_posters/{{ movie.movie_pic }}" title="{{ movie.movie_title }}"  />
+                </div>
+                <center>
+                    <div class="tile__details" style="margin-top: 60px;">
+                        <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" class="play"><i class="far fa-play-circle"></i></a>
+                        <div>
+                            <div class="sub-buttons" title="Add to My List"><a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in mylist else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Like"><a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Info - {{ movie.movie_title }}"><a href="{{ url_for('info',video_id=movie.movieid) }}"><i class="fas fa-info"></i></a></div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if my_list|length > 0 %}
+    <h3 class="row-head">My List</h3>
+    <div class="row">
+        <div class="row__inner">
+            {% for movie in my_list %}
+            <div class="tile" title="{{ movie.movie_title }}">
+                <div class="tile__media">
+                    <img class="tile__img" src="static/movie_posters/{{ movie.movie_pic }}" title="{{ movie.movie_title }}"  />
+                </div>
+                <center>
+                    <div class="tile__details" style="margin-top: 60px;">
+                        <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" class="play"><i class="far fa-play-circle"></i></a>
+                        <div>
+                            <div class="sub-buttons" title="Add to My List"><a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in mylist else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Like"><a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Info - {{ movie.movie_title }}"><a href="{{ url_for('info',video_id=movie.movieid) }}"><i class="fas fa-info"></i></a></div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <h3 class="row-head">Comedies</h3>
+    <div class="row">
+        <div class="row__inner">
+            {% for movie in comedies %}
+            <div class="tile" title="{{ movie.movie_title }}">
+                <div class="tile__media">
+                    <img class="tile__img" src="static/movie_posters/{{ movie.movie_pic }}" title="{{ movie.movie_title }}"  />
+                </div>
+                <center>
+                    <div class="tile__details" style="margin-top: 60px;">
+                        <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" class="play"><i class="far fa-play-circle"></i></a>
+                        <div>
+                            <div class="sub-buttons" title="Add to My List"><a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in mylist else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Like"><a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Info - {{ movie.movie_title }}"><a href="{{ url_for('info',video_id=movie.movieid) }}"><i class="fas fa-info"></i></a></div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h3 class="row-head">Indian Movies</h3>
+    <div class="row">
+        <div class="row__inner">
+            {% for movie in indian %}
+            <div class="tile" title="{{ movie.movie_title }}">
+                <div class="tile__media">
+                    <img class="tile__img" src="static/movie_posters/{{ movie.movie_pic }}" title="{{ movie.movie_title }}"  />
+                </div>
+                <center>
+                    <div class="tile__details" style="margin-top: 60px;">
+                        <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" class="play"><i class="far fa-play-circle"></i></a>
+                        <div>
+                            <div class="sub-buttons" title="Add to My List"><a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in mylist else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Like"><a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a></div>
+                            <div class="sub-buttons" title="Info - {{ movie.movie_title }}"><a href="{{ url_for('info',video_id=movie.movieid) }}"><i class="fas fa-info"></i></a></div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+      $(".add").click(function(){
+        var id = $(this).attr('id');
+        $.ajax({type: "GET",url: window.location.origin+"/add_to_list/"+id, success: function(result){
+            //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+            $(".add").each(function(){
+                var idx = $(this).attr('id');
+                if(idx==id){
+                    console.log("YES");
+                    if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                    {
+                        $(this).find("i").css("color","blue");
+                    }
+                    else
+                    {
+                        $(this).find("i").css("color","rgb(255, 255, 255)");
+                    }
+                }
+            });
+            
+        }});
+      });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+      $(".like").click(function(){
+        var id = $(this).attr('id');
+        $.ajax({type: "GET",url: window.location.origin+"/like/"+id, success: function(result){
+            //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+            $(".like").each(function(){
+                var idx = $(this).attr('id');
+                if(idx==id){
+                    console.log("YES");
+                    if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                    {
+                        $(this).find("i").css("color","#e50914");
+                    }
+                    else
+                    {
+                        $(this).find("i").css("color","rgb(255, 255, 255)");
+                    }
+                }
+            });
+            
+        }});
+      });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+      $(".search").keyup(function(){
+        setTimeout(function(){
+            var ser = $(".search").val();
+            //console.log(ser);
+            container = document.getElementById("search-res");
+            container.innerHTML = '';
+            if(ser!='')
+            {
+              $.ajax({type: "GET",url: window.location.origin+"/getsearchresults/"+ser,dataType: 'json', complete: function(result){
+                res = JSON.parse(result.responseText);
+                for (var i = 0; i <res.length; i++) {
+                  var div = document.createElement("div");
+                  var x1 = document.createElement("a");
+                  x1.innerHTML = res[i];
+                  //console.log(result);
+                  //x1.innerHTML = res[i];
+                  //console.log(res[i]);
+                  var s = "/search/"+res[i];
+                  //console.log(s);
+                  x1.href = s;
+                  x1.style.display="block";
+                  div.classList.add("search_element");
+                  div.appendChild(x1);
+                  container.appendChild(div);
+              }  
+              }});
+          }
+        },1000);
+      });
+    });
+</script>
+{% endblock bodycontent %}

@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block bodycontent %}
+		<div class="cover">
+			<nav class="navbar navbar-expand-lg navbar-trans navbar-inverse sticky-top" >
+				<div class="container">
+					<!--<a class="navbar-brand" href="#">Bootstrap 4 Cover Nav</a>-->
+					<img src="{{ url_for('static', filename='logo.png') }}" class="nav-logo">
+					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" style="color: #e50914;font-size: 30px;"></i>
+					</button>
+					<div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+						<ul class="navbar-nav mt-2 mt-md-0">
+							<li class="nav-item">
+								<a class="btn btn-outline-danger btn-outline" href="{{ url_for('login') }}"><i class="fa fa-user"></i> Sign In
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="btn btn-outline-danger btn-outline" href="{{ url_for('register') }}"><i class="fa fa-user"></i> Sign Up
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class="login banner-centered" style="text-align: left;">
+		  	  <h1 class="login__title">Sign Up</h1>
+		  	  {% with messages = get_flashed_messages(with_categories=true) %}
+		  	  	{% if messages %}
+		  	  		{% for category, message in messages %}
+		                <div class="alert alert-{{ category }}">
+		                  {{ message }}
+		                </div>
+		            {% endfor %}
+		  	  	{% endif %}
+		  	  {% endwith %}
+		  	  <form method="POST" action="">
+		  	  	{{ form.hidden_tag() }}
+		  	  	  <div class="login__group">
+				    {% if form.username.errors %}
+				    	{{ form.username(class="login__group__input is-invalid") }}
+				    	<div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+				    		{% for error in form.username.errors %}
+				    			<span>{{ error }}</span>
+				    		{% endfor %}
+				    	</div>
+				    {% else %}
+				    	{{ form.username(class="login__group__input") }}
+				    {% endif %}
+				  	{{ form.username.label(class="login__group__label") }} 
+				  </div>
+				  <div class="login__group">
+				    {% if form.email.errors %}
+				    	{{ form.email(class="login__group__input is-invalid") }}
+				    	<div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+				    		{% for error in form.email.errors %}
+				    			<span>{{ error }}</span>
+				    		{% endfor %}
+				    	</div>
+				    {% else %}
+				    	{{ form.email(class="login__group__input") }}
+				    {% endif %}
+				  	{{ form.email.label(class="login__group__label") }} 
+				  </div>
+				  <div class="login__group">
+				    {% if form.password.errors %}
+				    	{{ form.password(class="login__group__input is-invalid") }}
+				    	<div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+				    		{% for error in form.password.errors %}
+				    			<span>{{ error }}</span>
+				    		{% endfor %}
+				    	</div>
+				    {% else %}
+				    	{{ form.password(class="login__group__input") }}
+				    {% endif %}
+				  	{{ form.password.label(class="login__group__label") }} 
+				  </div>
+				  <div class="login__group">
+				    {% if form.confirm_password.errors %}
+				    	{{ form.confirm_password(class="login__group__input is-invalid") }}
+				    	<div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+				    		{% for error in form.confirm_password.errors %}
+				    			<span>{{ error }}</span>
+				    		{% endfor %}
+				    	</div>
+				    {% else %}
+				    	{{ form.confirm_password(class="login__group__input") }}
+				    {% endif %}
+				  	{{ form.confirm_password.label(class="login__group__label") }} 
+				  </div>
+				  {{ form.submit(class="login__group__signin") }}
+			  </form>
+			  <div class="border-top pt-3">
+			  	<medium>
+			  		Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}" style="color: #e50914">Sign In</a>
+			  	</medium>
+			  </div>
+			</div>	
+		</div>
+{% endblock bodycontent %}

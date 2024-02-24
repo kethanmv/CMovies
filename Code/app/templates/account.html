@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+{% block bodycontent %}
+<nav class="navbar navbar-expand-lg navbar-trans navbar-inverse sticky-top">
+    <div class="container">
+        <!--<a class="navbar-brand" href="#">Bootstrap 4 Cover Nav</a>-->
+        <img src="{{ url_for('static', filename='logo.png') }}" class="nav-logo">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" style="color: #e50914;font-size: 30px;"></i>
+        </button>
+        <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+            <div>
+                <form action="" method="POST" class="searchform navbar-form" role="search">
+                    {{ form1.hidden_tag() }}
+                    <input type="hidden" value="search" name="view">
+                    <div class="input-group">
+                        {{ form1.search_field(class="form-control search") }}
+                        {{ form1.search_field.label }}
+                        <div class="input-group-btn">
+                            <button class="btn" type="submit"><i class="fa fa-search" style="color: black;"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div style="padding: 10px 15px;position: absolute;z-index: 50;margin-top: 50px;" id="search-res">
+                </div>
+            </div>
+            <ul class="navbar-nav mt-2 mt-md-0">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}" style="padding-top: 15px;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('latest') }}" style="padding-top: 15px;">Latest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('mylist') }}" style="padding-top: 15px;">My List</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('account') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ image_file }}" width="40" height="40" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('history') }}">Watch History</a>
+                        <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                        <a class="dropdown-item btn btn-outline-danger btn-outline" href="{{ url_for('logout') }}" style="margin-left: 0;"><i class="fa fa-user"></i> Logout
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('login') }}"><i class="fa fa-user"></i> Sign In
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('register') }}"><i class="fa fa-user"></i> Sign Up
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container main-container" style="text-align: left;">
+    <center>
+        <div class="content-section" style="text-align: left;">
+            <div class="media" style="align-items: center; vertical-align:middle;">
+                <img class="rounded-circle account-img" src="{{ image_file }}" width="90" height="90" style="margin: 20px;">
+                <div class="media-body">
+                    <h2 class="account-heading">{{ current_user.username }}</h2>
+                    <p class="text-secondary">{{ current_user.email }}</p>
+                </div>
+            </div>
+            <h1 class="login__title">Account Info</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            {% if message!='Login Unsuccessful. Please check username and password.' and 'Account created for' not in message %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="login__group">
+                    {% if form.username.errors %}
+                    {{ form.username(class="login__group__input is-invalid") }}
+                    <div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+                        {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.username(class="login__group__input") }}
+                    {% endif %}
+                    {{ form.username.label(class="login__group__label") }} 
+                </div>
+                <div class="login__group">
+                    {% if form.email.errors %}
+                    {{ form.email(class="login__group__input is-invalid") }}
+                    <div class="invalid-feedback" style="clear: both;padding-left: 5px;">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="login__group__input") }}
+                    {% endif %}
+                    {{ form.email.label(class="login__group__label") }} 
+                </div>
+                <div class="login__group" style="padding: 10px;">
+                    {{ form.picture.label() }} 
+                    {{ form.picture(class="form-control-file") }}
+                    {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                    <span class="text-danger">{{ error }}</span><br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {{ form.submit(class="login__group__signin") }}
+            </form>
+        </div>
+    </center>
+</div>
+<script>
+    $(document).ready(function(){
+      $(".search").keyup(function(){
+        setTimeout(function(){
+            var ser = $(".search").val();
+            //console.log(ser);
+            container = document.getElementById("search-res");
+            container.innerHTML = '';
+            if(ser!='')
+            {
+              $.ajax({type: "GET",url: window.location.origin+"/getsearchresults/"+ser,dataType: 'json', complete: function(result){
+                res = JSON.parse(result.responseText);
+                for (var i = 0; i <res.length; i++) {
+                  var div = document.createElement("div");
+                  var x1 = document.createElement("a");
+                  x1.innerHTML = res[i];
+                  //console.log(result);
+                  //x1.innerHTML = res[i];
+                  //console.log(res[i]);
+                  var s = "/search/"+res[i];
+                  //console.log(s);
+                  x1.href = s;
+                  x1.style.display="block";
+                  div.classList.add("search_element");
+                  div.appendChild(x1);
+                  container.appendChild(div);
+              }  
+            }});
+          }
+        },1000);
+      });
+    });
+</script>
+{% endblock bodycontent %}

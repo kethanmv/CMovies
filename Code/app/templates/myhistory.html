@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+{% block bodycontent %}
+<nav class="navbar navbar-expand-lg navbar-trans navbar-inverse sticky-top">
+    <div class="container">
+        <!--<a class="navbar-brand" href="#">Bootstrap 4 Cover Nav</a>-->
+        <img src="{{ url_for('static', filename='logo.png') }}" class="nav-logo">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars" style="color: #e50914;font-size: 30px;"></i>
+        </button>
+        <div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+            <div>
+                <form action="" method="POST" class="searchform navbar-form" role="search">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" value="search" name="view">
+                    <div class="input-group">
+                        {{ form.search_field(class="form-control search") }}
+                        {{ form.search_field.label }}
+                        <div class="input-group-btn">
+                            <button class="btn" type="submit"><i class="fa fa-search" style="color: black;"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div style="padding: 10px 15px;position: absolute;z-index: 50;margin-top: 50px;" id="search-res">
+                </div>
+            </div>
+            <ul class="navbar-nav mt-2 mt-md-0">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}" style="padding-top: 15px;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('latest') }}" style="padding-top: 15px;">Latest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('mylist') }}" style="padding-top: 15px;">My List</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('account') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ image_file }}" width="40" height="40" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('history') }}">Watch History</a>
+                        <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                        <a class="dropdown-item btn btn-outline-danger btn-outline" href="{{ url_for('logout') }}" style="margin-left: 0;"><i class="fa fa-user"></i> Logout
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('login') }}"><i class="fa fa-user"></i> Sign In
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger btn-outline" href="{{ url_for('register') }}"><i class="fa fa-user"></i> Sign Up
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% if history|length > 0 %}
+<div class="container main-container">
+    <div style="display: inline;">
+        <h3 class="row-head" style="display: inline;">My History</h3>
+        <a href="/clear"><button type="button" class="btn" style="float: right;background: #e50914;color: white;">Clear History<i class="fas fa-trash" style="color:white;padding: 3px;"></i></button></a>
+    </div>
+    <div style="margin-left: 70px;">
+        {% for movie in history %}
+        <div class="history-tile" title="{{ movie.movie_title }}" style="margin: 20px;">
+            <div class="history-tile__media">
+                <img class="history-tile__img" src="static/movie_posters/{{ movie.movie_pic }}" title="{{ movie.movie_title }}"  />
+            </div>
+            <center>
+                <div class="history-tile__details" style="margin-top: 60px;">
+                    <a href="{{ url_for('watch',youtube_id=movie.youtube_id) }}" class="play"><i class="far fa-play-circle"></i></a>
+                    <div>
+                        <div class="sub-buttons" title="Add to My List"><a class="add" id="{{ movie.movieid }}"><i class="fas fa-plus" style="color: {{'blue' if movie.movieid in mylist else 'white'}};"></i></a></div>
+                        <div class="sub-buttons" title="Like"><a class="like" id="{{ movie.movieid }}"><i class="fa fa-thumbs-up" style="color: {{'#e50914' if movie.movieid in likes else 'white'}};"></i></a></div>
+                        <div class="sub-buttons" title="Info - {{ movie.movie_title }}"><a href="{{ url_for('info',video_id=movie.movieid) }}"><i class="fas fa-info"></i></a></div>
+                    </div>
+                </div>
+            </center>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="container main-container" style="text-align: center;">
+    <h5 style="padding: 50px;">You haven't watched any movies yet.</h5>
+</div>
+{% endif %}
+<script>
+    $(document).ready(function(){
+      $(".add").click(function(){
+        var id = $(this).attr('id');
+        $.ajax({type: "GET",url: window.location.origin+"/add_to_list/"+id, success: function(result){
+            //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+            $(".add").each(function(){
+                var idx = $(this).attr('id');
+                if(idx==id){
+                    console.log("YES");
+                    if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                    {
+                        $(this).find("i").css("color","blue");
+                    }
+                    else
+                    {
+                        $(this).find("i").css("color","rgb(255, 255, 255)");
+                    }
+                }
+            });
+            
+        }});
+      });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+      $(".like").click(function(){
+        var id = $(this).attr('id');
+        $.ajax({type: "GET",url: window.location.origin+"/like/"+id, success: function(result){
+            //alert($ele.find("i").css("color")=="rgb(255, 255, 255)");
+            $(".like").each(function(){
+                var idx = $(this).attr('id');
+                if(idx==id){
+                    console.log("YES");
+                    if ($(this).find("i").css("color")=="rgb(255, 255, 255)")
+                    {
+                        $(this).find("i").css("color","#e50914");
+                    }
+                    else
+                    {
+                        $(this).find("i").css("color","rgb(255, 255, 255)");
+                    }
+                }
+            });
+            
+        }});
+      });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+      $(".search").keyup(function(){
+        setTimeout(function(){
+            var ser = $(".search").val();
+            //console.log(ser);
+            container = document.getElementById("search-res");
+            container.innerHTML = '';
+            if(ser!='')
+            {
+              $.ajax({type: "GET",url: window.location.origin+"/getsearchresults/"+ser,dataType: 'json', complete: function(result){
+                res = JSON.parse(result.responseText);
+                for (var i = 0; i <res.length; i++) {
+                  var div = document.createElement("div");
+                  var x1 = document.createElement("a");
+                  x1.innerHTML = res[i];
+                  //console.log(result);
+                  //x1.innerHTML = res[i];
+                  //console.log(res[i]);
+                  var s = "/search/"+res[i];
+                  //console.log(s);
+                  x1.href = s;
+                  x1.style.display="block";
+                  div.classList.add("search_element");
+                  div.appendChild(x1);
+                  container.appendChild(div);
+              }  
+              }});
+          }
+        },1000);
+      });
+    });
+</script>
+{% endblock bodycontent %}

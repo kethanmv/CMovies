@@ -1,0 +1,461 @@
+﻿
+1917
+12 Angry Men
+12 Years a Slave
+2001: A Space Odyssey
+3 Idiots
+A Beautiful Mind
+A Clockwork Orange
+A Separation
+Ace in the Hole
+Akira
+Aladdin
+Alien
+All About Eve
+Amadeus
+American Beauty
+American History X
+Amores perros
+Amelie
+Andhadhun
+Andrei Rublev
+Apocalypse Now
+Avengers: Endgame
+Avengers: Infinity War
+Babam ve Oglum
+Children of Heaven
+Back to the Future
+Batman Begins
+Before Sunrise
+Before Sunset
+Ben-Hur
+Blade Runner
+Braveheart
+Butch Cassidy and the Sundance Kid
+Capharnaüm
+Casablanca
+Casino
+Catch Me If You Can
+Chinatown
+Cidade de Deus
+Cinema Paradiso
+Citizen Kane
+City Lights
+Coco
+Contratiempo
+Cool Hand Luke
+Dangal
+Das Boot
+Dead Poets Society
+The Seventh Seal
+Dial M for Murder
+Die Hard
+Django Unchained
+Double Indemnity
+Downfall
+Dr Strangelove or: How I Learned to Stop Worrying and Love the Bomb
+Drishyam
+El secreto de sus ojos
+Eternal Sunshine of the Spotless Mind
+Faa yeung nin wa
+Fargo
+Fight Club
+Finding Nemo
+Ford v Ferrari
+Forrest Gump
+Full Metal Jacket
+Gangs of Wasseypur
+Gladiator
+Gone Girl
+Gone with the Wind
+Good Will Hunting
+Goodfellas
+Gran Torino
+Grave of the Fireflies
+Green Book
+Groundhog Day
+Guardians of the Galaxy
+Hachi: A Dog's Tale
+Hacksaw Ridge
+Harakiri
+Harry Potter and the Deathly Hallows: Part 2
+Heat
+Hotel Rwanda
+How to Train Your Dragon
+Howl's Moving Castle
+Come and See
+Ikiru
+The Good, the Bad and the Ugly
+In the Name of the Father
+Incendies
+Inglourious Basterds
+Inside Out
+Interstellar
+Into the Wild
+It Happened One Night
+It's a Wonderful Life
+Jagten
+Joker
+Judgment at Nuremberg
+Jurassic Park
+Nausicaa of the Valley of the Wind 
+Kill Bill: Vol 1
+Klaus
+LA Confidential
+La battaglia di Algeri
+La haine
+La passion de Jeanne d'Arc
+La vita è bella
+Ladri di biciclette
+Lagaan: Once Upon a Time in India
+Lawrence of Arabia
+Le salaire de la peur
+Les quatre cents coups
+Life of Brian
+Lock, Stock and Two Smoking Barrels
+Logan
+Léon
+M - Eine Stadt sucht einen Mörder
+Mad Max: Fury Road
+Mary and Max
+Metropolis
+Million Dollar Baby
+Modern Times
+Monsters, Inc
+Monty Python and the Holy Grail
+Mr Smith Goes to Washington
+Network
+No Country for Old Men
+North by Northwest
+Oldboy
+On the Waterfront
+Once Upon a Time in America
+Once Upon a Time in the West
+One Flew Over the Cuckoo's Nest
+PK
+Pan's Labyrinth
+Parasite
+Paris, Texas
+Paths of Glory
+Per qualche dollaro in più
+Persona
+Platoon
+Princess Mononoke
+Prisoners
+Psycho
+Pulp Fiction
+Raging Bull
+Raiders of the Lost Ark
+Ran
+Rang De Basanti
+Rashômon
+Rear Window
+Rebecca
+Relatos salvajes
+Requiem for a Dream
+Reservoir Dogs
+Rocky
+Room
+Rush
+Saving Private Ryan
+Scarface
+Schindler's List
+Se7en
+Seven Samurai
+Sherlock Jr
+Shutter Island
+Singin' in the Rain
+Smultronstället
+Snatch
+Some Like It Hot
+Spider-Man: Into the Spider-Verse
+Spirited Away
+Stand by Me
+Star Wars
+Star Wars: Episode V - The Empire Strikes Back
+Star Wars: Episode VI - Return of the Jedi
+Sunset Blvd
+Taare Zameen Par
+Taxi Driver
+Terminator 2: Judgment Day
+The Apartment
+The Big Lebowski
+The Bridge on the River Kwai
+The Dark Knight
+The Dark Knight Rises
+The Deer Hunter
+The Departed
+The Elephant Man
+The General
+The Godfather: Part II
+The Gold Rush
+The Grand Budapest Hotel
+The Great Dictator
+The Great Escape
+The Green Mile
+The Handmaiden
+The Help
+The Intouchables
+The Kid
+The Lion King
+The Lives of Others
+The Lord of the Rings: The Fellowship of the Ring
+The Lord of the Rings: The Return of the King
+The Lord of the Rings: The Two Towers
+The Matrix
+The Prestige
+The Princess Bride
+The Red Shoes
+The Shawshank Redemption
+The Shining
+The Silence of the Lambs
+The Sixth Sense
+The Sting
+The Terminator
+The Thing
+The Third Man
+The Treasure of the Sierra Madre
+The Truman Show
+The Usual Suspects
+The Wolf of Wall Street
+There Will Be Blood
+Three Billboards Outside Ebbing, Missouri
+To Kill a Mockingbird
+My Neighbor Totoro
+Toy Story
+Toy Story 3
+Trainspotting
+Tôkyô monogatari
+Unforgiven
+Up
+V for Vendetta
+Vertigo
+WALL-E
+Warrior
+Whiplash
+Witness for the Prosecution
+Your Name
+Yôjinbô
+English
+French 
+German
+Russian
+Hindi
+Spanish 
+Latin
+Korean 
+Japanese
+Italian
+Tatar
+Vietnamese
+Xhosa
+Turkish
+Persian
+Mandarin
+Cantonese
+Hungarian 
+Arabic
+Scottish Gaelic
+Amharic
+Portuguese 
+Tamil
+Telugu
+Swedish
+Shanghainese
+Hmong
+Kinyarwanda
+Belarusian
+Danish
+Polish
+Saami
+Awadhi
+Urdu
+Yiddish
+Irish
+Kurdish
+Hebrew
+Nepali
+Punjabi
+Czech
+Thai
+Sicilian
+Esperanto
+Swahili
+Zulu
+Sindarin
+Quenya
+Old English
+Norwegian
+American Sign Language
+Sidney Lumet
+Steve McQueen
+Sam Mendes
+Stanley Kubrick
+Rajkumar Hirani
+Ron Howard
+Billy Wilder
+Chan-wook Park
+Katsuhiro Ôtomo
+Ron Clements
+Ridley Scott
+Joseph L. Mankiewicz
+Milos Forman
+Tony Kaye
+Alejandro G. Iñárritu
+Jean-Pierre Jeunet
+Sriram Raghavan
+Andrei Tarkovsky
+Francis Ford Coppola
+Anthony Russo
+Çagan Irmak
+Majid Majidi
+Robert Zemeckis
+Christopher Nolan
+Richard Linklater
+William Wyler
+Mel Gibson
+George Roy Hill
+Nadine Labaki
+Michael Curtiz
+Martin Scorsese
+Steven Spielberg
+Roman Polanski
+Fernando Meirelles
+Orson Welles
+Charles Chaplin
+Lee Unkrich
+Oriol Paulo
+Stuart Rosenberg
+Nitesh Tiwari
+Wolfgang Petersen
+Peter Weir
+Oliver Hirschbiegel
+Ingmar Bergman
+Alfred Hitchcock
+John McTiernan
+Quentin Tarantino
+Nishikant Kamat
+Juan José Campanella
+Michel Gondry
+Kar-Wai Wong
+Joel Coen
+David Fincher
+Andrew Stanton
+James Mangold
+Anurag Kashyap
+Victor Fleming
+Gus Van Sant
+Clint Eastwood
+Peter Farrelly
+Harold Ramis
+James Gunn
+Lasse Hallström
+David Yates
+Hayao Miyazaki
+Michael Mann
+Isao Takahata
+Terry George
+Dean DeBlois
+Elem Klimov
+Akira Kurosawa
+Sergio Leone
+Jim Sheridan
+Denis Villeneuve
+Pete Docter
+Sean Penn
+Frank Capra
+Thomas Vinterberg
+Asghar Farhadi
+Todd Phillips
+Stanley Kramer
+Makoto Shinkai
+Sergio Pablos
+Curtis Hanson
+Gillo Pontecorvo
+Mathieu Kassovitz
+Carl Theodor Dreyer
+Roberto Benigni
+Vittorio De Sica
+Ashutosh Gowariker
+David Lean
+Henri-Georges Clouzot
+François Truffaut
+Terry Jones
+Guy Ritchie
+Luc Besson
+Fritz Lang
+George Miller
+Adam Elliot
+Terry Gilliam
+Ethan Coen
+Giuseppe Tornatore
+Elia Kazan
+Guillermo del Toro
+Bong Joon Ho
+Wim Wenders
+Oliver Stone
+Rakeysh Omprakash Mehra
+Damián Szifron
+Darren Aronofsky
+John G. Avildsen
+Lenny Abrahamson
+Brian De Palma
+Masaki Kobayashi
+Buster Keaton
+Stanley Donen
+Bob Persichetti
+Rob Reiner
+George Lucas
+Irvin Kershner
+Richard Marquand
+Aamir Khan
+James Cameron
+Michael Cimino
+David Lynch
+Clyde Bruckman
+Wes Anderson
+John Sturges
+Frank Darabont
+Tate Taylor
+Olivier Nakache
+Roger Allers
+Florian Henckel von Donnersmarck
+Peter Jackson
+Lana Wachowski
+Michael Powell
+Jonathan Demme
+M. Night Shyamalan
+John Carpenter
+Carol Reed
+John Huston
+Bryan Singer
+Paul Thomas Anderson
+Martin McDonagh
+Robert Mulligan
+John Lasseter
+Danny Boyle
+Yasujirô Ozu
+James McTeigue
+Gavin O'Connor
+Damien Chazelle
+Drama
+Biography
+History
+War
+Action
+Adventure
+Sci-Fi
+Comedy
+Crime
+Film-Noir
+Romance
+Thriller
+Animation
+Horror
+Mystery
+Family
+Sport
+Fantasy
+Western
+Musical
+Music
